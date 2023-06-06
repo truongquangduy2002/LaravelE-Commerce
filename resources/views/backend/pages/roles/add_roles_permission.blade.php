@@ -2,6 +2,12 @@
 @section('admin')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+    <style type="text/css">
+        .form-check-label {
+            text-transform: capitalize;
+        }
+    </style>
+
     <!--start page wrapper -->
     <div class="page-wrapper">
         <div class="page-content">
@@ -29,12 +35,14 @@
                                 <div class="card-body">
                                     <form id="myForm" method="post" action="{{ route('role.permission.store') }}">
                                         @csrf
+
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
                                                 <h6 class="mb-0">Roles Name</h6>
                                             </div>
                                             <div class="form-group col-sm-9 text-secondary">
-                                                <select class="form-select mb-3" aria-label="Default select example">
+                                                <select name="role_id" class="form-select mb-3"
+                                                    aria-label="Default select example">
                                                     <option selected="">Open this select menu</option>
                                                     @foreach ($roles as $role)
                                                         <option value="{{ $role->id }}">{{ $role->name }}</option>
@@ -63,6 +71,7 @@
                                                     @php
                                                         $permissions = App\Models\User::getpermissionByGroupName($group->group_name);
                                                     @endphp
+
                                                     @foreach ($permissions as $permission)
                                                         <div class="form-check">
                                                             <input class="form-check-input" name="permission[]"
