@@ -212,6 +212,8 @@ Route::controller(CouponController::class)->group(function () {
     Route::get('/edit/coupon/{id}', 'EditCoupon')->name('edit.coupon');
     Route::post('/update/coupon', 'UpdateCoupon')->name('update.coupon');
     Route::get('/delete/coupon/{id}', 'DeleteCoupon')->name('delete.coupon');
+    Route::get('/admin/send-voucher', 'showSendCoupon')->name('admin.send.coupon');
+    Route::post('/admin/send-voucher', 'sendCoupon')->name('admin.send.coupon.post');
 });
 
 // Shipping Division All Route 

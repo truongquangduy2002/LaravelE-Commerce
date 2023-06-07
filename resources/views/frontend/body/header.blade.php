@@ -68,7 +68,7 @@
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-                    <a href="index.html"><img src="{{ asset($setting->logo) }}" alt="logo" /></a>
+                    <a href="{{ route('user.dashboard') }}"><img src="{{ asset($setting->logo) }}" alt="logo" /></a>
                 </div>
                 <div class="header-right">
                     <div class="search-style-2">
@@ -189,7 +189,7 @@
                                                     Account</a>
                                             </li>
                                             <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-location-alt mr-10"></i>Order
+                                                <a href="{{ route('user.track.order') }}"><i class="fi fi-rs-location-alt mr-10"></i>Order
                                                     Tracking</a>
                                             </li>
                                             <li>

@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Coupon;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VoucherEmail;
 
 class CouponController extends Controller
 {
@@ -78,4 +81,32 @@ class CouponController extends Controller
         return redirect()->back()->with($notification);
     } // End Method 
 
+    public function showSendCoupon()
+    {
+        $users = User::where('role', 'user')->get(); // Lấy danh sách người dùng
+        $coupons = Coupon::all(); // Lấy danh sách xoupon
+
+        return view('backend.coupon.send_user_coupon', compact('users', 'coupons'));
+    }
+
+    public function sendCoupon(Request $request)
+    {
+        $userId = $request->input('name');
+        $couponName = $request->input('coupon_name');
+
+        $user = User::find($userId);
+        $coupon = Coupon::find($couponName);
+
+        if ($user && $coupon && $user->role === 'user') {
+            // Gửi coupon cho người dùng chỉ khi người dùng có vai trò là "user"
+
+            // Gửi email thông báo
+            Mail::to($user->email)->send(new VoucherEmail($user, $coupon));
+
+            // Logic để gửi coupon cho người dùng
+            return redirect()->route('admin.send.coupon')->with('success', 'Coupon đã được gửi thành công.');
+        }
+
+        return redirect()->route('admin.send.coupon')->with('error', 'Không thể gửi coupon cho người dùng này.');
+    }
 }

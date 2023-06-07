@@ -6,20 +6,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\User;
+use App\Models\Coupon;
 
-class RegisterMail extends Mailable
+class VoucherEmail extends Mailable
 {
     use Queueable, SerializesModels;
-    protected $user;
+    public $user;
+    public $coupon;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct(User $user, Coupon $coupon)
     {
         $this->user = $user;
+        $this->coupon = $coupon;
     }
 
     /**
@@ -29,8 +33,11 @@ class RegisterMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.register_mail')
-            ->subject('Đăng ký tài khoản thành công')
-            ->with(['user' => $this->user]);
+        return $this->view('mails.coupon')
+            ->subject('Thông báo Coupon')
+            ->with([
+                'user' => $this->user,
+                'coupon' => $this->coupon,
+            ]);
     }
 }

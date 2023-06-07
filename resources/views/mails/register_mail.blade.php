@@ -61,7 +61,7 @@
 
     <div class="container">
         <div class="logo">
-            <img src="{{ asset('frontend/assets/imgs/theme/logo.svg') }}" alt="Logo">
+            <img src="{{ asset('frontend/assets/imgs/theme/logo.svg') }}" alt="Logo" width="200px">
         </div>
         <div class="message">
             <h3>Xin chào!</h3>

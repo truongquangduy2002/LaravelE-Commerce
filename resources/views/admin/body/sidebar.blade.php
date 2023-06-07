@@ -126,7 +126,8 @@
                 </li>
                 <li> <a href="{{ route('add.banner') }}"><i class="bx bx-right-arrow-alt"></i>Add Coupon</a>
                 </li>
-
+                <li> <a href="{{ route('admin.send.coupon') }}"><i class="bx bx-right-arrow-alt"></i>Send Coupon</a>
+                </li>
             </ul>
         </li>
         <li>

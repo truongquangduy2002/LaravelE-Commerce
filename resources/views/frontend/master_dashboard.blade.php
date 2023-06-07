@@ -188,7 +188,7 @@
                     size: size,
                     quantity: quantity,
                     product_name: product_name,
-                    vendor: vendor
+                    vendor: vendor,
                 },
                 url: "/cart/data/store/" + id,
                 success: function(data) {
@@ -224,6 +224,7 @@
         function addToCartDetails() {
             var product_name = $('#dpname').text();
             var id = $('#dproduct_id').val();
+            var vendor = $('#pvendor_id').text();
             var color = $('#dcolor option:selected').text();
             var size = $('#dsize option:selected').text();
             var quantity = $('#dqty').val();
@@ -235,7 +236,7 @@
                     size: size,
                     quantity: quantity,
                     product_name: product_name,
-                    vendor: vendor
+                    vendor: vendor,
                 },
                 url: "/dcart/data/store/" + id,
                 success: function(data) {
@@ -472,6 +473,7 @@
     <script type="text/javascript">
         function applyCoupon() {
             var coupon_name = $('#coupon_name').val();
+
             $.ajax({
                 type: "POST",
                 dataType: 'json',
@@ -479,39 +481,36 @@
                     coupon_name: coupon_name
                 },
                 url: "/coupon-apply",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 success: function(data) {
                     couponCalculation();
 
-                    if (data.validity == true) {
+                    if (data.validity) {
                         $('#couponField').hide();
                     }
 
-                    // Start Message 
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
-
                         showConfirmButton: false,
                         timer: 3000
-                    })
+                    });
+
                     if ($.isEmptyObject(data.error)) {
-
                         Toast.fire({
-                            type: 'success',
                             icon: 'success',
-                            title: data.success,
-                        })
+                            title: data.success
+                        });
                     } else {
-
                         Toast.fire({
-                            type: 'error',
                             icon: 'error',
-                            title: data.error,
-                        })
+                            title: data.error
+                        });
                     }
-                    // End Message  
                 }
-            })
+            });
         }
 
         // Start CouponCalculation Method   

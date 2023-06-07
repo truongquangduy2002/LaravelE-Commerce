@@ -6,20 +6,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Notification;
 
-class RegisterMail extends Mailable
+class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
-    protected $user;
+    public $resetUrl;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($resetUrl)
     {
-        $this->user = $user;
+        $this->resetUrl = $resetUrl;
     }
 
     /**
@@ -29,8 +30,10 @@ class RegisterMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.register_mail')
-            ->subject('Đăng ký tài khoản thành công')
-            ->with(['user' => $this->user]);
+        return $this->view('mails.reset_password')
+            ->subject('Đặt lại mật khẩu')
+            ->with([
+                'resetUrl' => $this->resetUrl,
+            ]);
     }
 }
