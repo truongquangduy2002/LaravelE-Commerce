@@ -43,8 +43,8 @@
                                         </a>
                                     </div>
                                     <div class="product-action-1">
-                                        <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i
-                                                class="fi-rs-heart"></i></a>
+                                        <a aria-label="Add To Wishlist" class="action-btn" id="{{ $product->id }}"
+                                            onclick="addToWishList(this.id)"><i class="fi-rs-heart"></i></a>
                                         <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i
                                                 class="fi-rs-shuffle"></i></a>
                                         <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal"
@@ -122,8 +122,9 @@
                                             </div>
                                         @endif
                                         <div class="add-cart">
-                                            <a class="add" href="{{ route('mycart') }}" onclick="addToCartDetails()"><i
-                                                    class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                            <a class="add" href="{{ route('mycart') }}"
+                                                onclick="addToCartDetails()"><i class="fi-rs-shopping-cart mr-5"></i>Add
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

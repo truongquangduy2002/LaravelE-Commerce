@@ -11,8 +11,8 @@
                         <ul>
 
                             <li><a href="{{ route('mycart') }}">My Cart</a></li>
-                            <li><a href="{{route('checkout')}}">Checkout</a></li>
-                            <li><a href="{{route('user.track.order')}}">Order Tracking</a></li>
+                            <li><a href="{{ route('checkout') }}">Checkout</a></li>
+                            <li><a href="{{ route('user.track.order') }}">Order Tracking</a></li>
                         </ul>
                     </div>
                 </div>
@@ -143,9 +143,9 @@
                                 <a href="shop-wishlist.html">
                                     <img class="svgInject" alt="Nest"
                                         src="{{ asset('frontend/assets/imgs/theme/icons/icon-heart.svg') }}" />
-                                    <span class="pro-count blue">6</span>
+                                    <span class="pro-count blue" id="wishQty">0</span>
                                 </a>
-                                <a href="shop-wishlist.html"><span class="lable">Wishlist</span></a>
+                                <a href="{{ route('wishlist') }}"><span class="lable">Wishlist</span></a>
                             </div>
                             <div class="header-action-icon-2">
                                 <a class="mini-cart-icon" href="shop-cart.html">
@@ -189,7 +189,8 @@
                                                     Account</a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('user.track.order') }}"><i class="fi fi-rs-location-alt mr-10"></i>Order
+                                                <a href="{{ route('user.track.order') }}"><i
+                                                        class="fi fi-rs-location-alt mr-10"></i>Order
                                                     Tracking</a>
                                             </li>
                                             <li>

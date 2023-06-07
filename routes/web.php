@@ -20,6 +20,7 @@ use App\Http\Controllers\Backend\ReportController;
 use App\Http\Controllers\Backend\SiteSettingController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\ActiveUserController;
+use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\StripeController;
 use App\Http\Controllers\User\AllUserController;
@@ -161,6 +162,9 @@ Route::post('/store/product', [ProductController::class, 'StoreProduct'])->name(
 // For Product Stock
 Route::get('/product/stock', [ProductController::class, 'ProductStock'])->name('product.stock');
 
+
+//------------------------------End Back-End------------------------------------------------//
+
 //-------------------Front-End-------------------------//
 
 //Product Detail
@@ -201,8 +205,25 @@ Route::post('/coupon-apply', [CartController::class, 'CouponApply']);
 Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
 Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
 
+//----------------------------USER---------------------------------//
+/// Add to Wishlist 
+Route::post('/add-to-wishlist/{product_id}', [WishlistController::class, 'AddToWishList']);
+
+/// User All Route
+Route::middleware(['auth', 'role:user'])->group(function () {
+
+    // Wishlist All Route 
+    Route::controller(WishlistController::class)->group(function () {
+        Route::get('/wishlist', 'AllWishlist')->name('wishlist');
+        Route::get('/get-wishlist-product', 'GetWishlistProduct');
+        Route::get('/wishlist-remove/{id}' , 'WishlistRemove');
+    });
+}); // end group middleware
+
 // Checkout Page Route 
 Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
+
+//----------------------------------------------------------------//
 
 // Coupon
 Route::controller(CouponController::class)->group(function () {
